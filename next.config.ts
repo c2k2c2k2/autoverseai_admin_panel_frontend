@@ -10,7 +10,8 @@ const baseConfig: NextConfig = {
         hostname: 'api.slingacademy.com',
         port: ''
       }
-    ]
+    ],
+    domains: ['api.slingacademy.com', 'www.autoverseai.in', 'autoverseai.in']
   },
   transpilePackages: ['geist']
 };

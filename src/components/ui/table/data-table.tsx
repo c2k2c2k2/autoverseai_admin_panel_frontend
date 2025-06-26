@@ -1,3 +1,5 @@
+'use client';
+
 import { type Table as TanstackTable, flexRender } from '@tanstack/react-table';
 import type * as React from 'react';
 
@@ -24,10 +26,10 @@ export function DataTable<TData>({
   children
 }: DataTableProps<TData>) {
   return (
-    <div className='flex flex-1 flex-col space-y-4'>
+    <div className='flex min-h-[400px] flex-1 flex-col space-y-4'>
       {children}
-      <div className='relative flex flex-1'>
-        <div className='absolute inset-0 flex overflow-hidden rounded-lg border'>
+      <div className='relative flex min-h-[300px] flex-1'>
+        <div className='relative flex w-full overflow-hidden rounded-lg border'>
           <ScrollArea className='h-full w-full'>
             <Table>
               <TableHeader className='bg-muted sticky top-0 z-10'>

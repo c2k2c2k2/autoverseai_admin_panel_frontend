@@ -1,3 +1,5 @@
+// Middleware removed due to Clerk version incompatibility.
+// Please implement server-side authentication checks in page components or upgrade Clerk package.
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextRequest } from 'next/server';
 

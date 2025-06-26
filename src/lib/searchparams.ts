@@ -10,7 +10,17 @@ export const searchParams = {
   perPage: parseAsInteger.withDefault(10),
   name: parseAsString,
   gender: parseAsString,
-  category: parseAsString
+  category: parseAsString,
+  // Variant-specific filters
+  brandId: parseAsString,
+  carId: parseAsString,
+  status: parseAsString,
+  transmission: parseAsString,
+  driveType: parseAsString,
+  minPrice: parseAsString,
+  maxPrice: parseAsString,
+  isAvailable: parseAsString,
+  inStock: parseAsString
   // advanced filter
   // filters: getFiltersStateParser().withDefault([]),
   // joinOperator: parseAsStringEnum(['and', 'or']).withDefault('and')

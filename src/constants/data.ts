@@ -22,6 +22,38 @@ export const navItems: NavItem[] = [
     items: [] // Empty array as there are no child items for Dashboard
   },
   {
+    title: 'Brands',
+    url: '/dashboard/brands',
+    icon: 'product',
+    isActive: false,
+    shortcut: ['b', 'b'],
+    items: [] // No child items
+  },
+  {
+    title: 'Cars',
+    url: '/dashboard/cars',
+    icon: 'car',
+    isActive: false,
+    shortcut: ['c', 'c'],
+    items: [] // No child items
+  },
+  {
+    title: 'Variants',
+    url: '/dashboard/variants',
+    icon: 'variant',
+    isActive: false,
+    shortcut: ['v', 'v'],
+    items: [] // No child items
+  },
+  {
+    title: 'License Types',
+    url: '/dashboard/license-types',
+    icon: 'car',
+    isActive: false,
+    shortcut: ['l', 't'],
+    items: [] // No child items
+  },
+  {
     title: 'User Management',
     url: '/dashboard/user-management',
     icon: 'user',

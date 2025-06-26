@@ -33,3 +33,9 @@ export interface FooterItem {
 export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
+
+// Re-export all types
+export * from './brand';
+export * from './car';
+export * from './variant';
+export * from './data-table';
