@@ -13,7 +13,7 @@ export default async function CarPage({ params }: CarPageProps) {
 
   let car;
   try {
-    car = await serverCarsApi.getCar(carId);
+    car = await serverCarsApi.getCarById(carId);
   } catch (error) {
     notFound();
   }
