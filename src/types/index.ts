@@ -39,3 +39,4 @@ export * from './brand';
 export * from './car';
 export * from './variant';
 export * from './data-table';
+export * from './user';

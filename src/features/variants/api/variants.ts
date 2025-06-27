@@ -16,8 +16,10 @@ export const variantsApi = {
     const params = new URLSearchParams();
     if (filters.page) params.append('page', filters.page.toString());
     if (filters.limit) params.append('limit', filters.limit.toString());
-    if (filters.search) params.append('search', filters.search);
-    if (filters.sortBy) params.append('sortBy', filters.sortBy);
+    if (filters.search && filters.search.trim())
+      params.append('search', filters.search.trim());
+    if (filters.sortBy && filters.sortBy.trim())
+      params.append('sortBy', filters.sortBy.trim());
     if (filters.sortOrder) params.append('sortOrder', filters.sortOrder);
     if (filters.brandId) params.append('brandId', filters.brandId);
     if (filters.carId) params.append('carId', filters.carId);

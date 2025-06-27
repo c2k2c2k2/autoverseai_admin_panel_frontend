@@ -30,7 +30,6 @@ import {
 } from '@/components/ui/sidebar';
 import { UserAvatarProfile } from '@/components/user-avatar-profile';
 import { navItems } from '@/constants/data';
-import { useMediaQuery } from '@/hooks/use-media-query';
 import { useUser } from '@clerk/nextjs';
 import {
   IconBell,
@@ -61,7 +60,6 @@ const tenants = [
 
 export default function AppSidebar() {
   const pathname = usePathname();
-  const { isOpen } = useMediaQuery();
   const { user } = useUser();
   const router = useRouter();
   const handleSwitchTenant = (_tenantId: string) => {
@@ -69,10 +67,6 @@ export default function AppSidebar() {
   };
 
   const activeTenant = tenants[0];
-
-  React.useEffect(() => {
-    // Side effects based on sidebar state changes
-  }, [isOpen]);
 
   return (
     <Sidebar collapsible='icon'>
@@ -93,7 +87,7 @@ export default function AppSidebar() {
                 <Collapsible
                   key={item.title}
                   asChild
-                  defaultOpen={item.isActive}
+                  defaultOpen={false}
                   className='group/collapsible'
                 >
                   <SidebarMenuItem>

@@ -29,11 +29,13 @@ serverAxios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     } catch (error) {
+      console.log('error 1: ', error);
       console.error('Auth error:', error);
       return Promise.reject(new Error('Authentication failed'));
     }
   },
   (error) => {
+    console.log('error 2: ', error);
     return Promise.reject(error);
   }
 );
@@ -42,6 +44,7 @@ serverAxios.interceptors.request.use(
 serverAxios.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log('error 3: ', error.response?.data);
     return Promise.reject(error);
   }
 );

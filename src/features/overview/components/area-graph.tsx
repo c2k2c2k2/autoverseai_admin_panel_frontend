@@ -2,6 +2,7 @@
 
 import { IconTrendingUp } from '@tabler/icons-react';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
+import { MonthlyTrend } from '@/types/stats';
 
 import {
   Card,
@@ -18,36 +19,54 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart';
 
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
-];
-
 const chartConfig = {
-  visitors: {
-    label: 'Visitors'
-  },
-  desktop: {
-    label: 'Desktop',
+  users: {
+    label: 'Users',
     color: 'var(--primary)'
   },
-  mobile: {
-    label: 'Mobile',
+  licenses: {
+    label: 'Licenses',
     color: 'var(--primary)'
   }
 } satisfies ChartConfig;
 
-export function AreaGraph() {
+interface AreaGraphProps {
+  data?: MonthlyTrend[];
+}
+
+export function AreaGraph({ data }: AreaGraphProps) {
+  // Use provided data or fallback to default
+  const chartData =
+    data && data.length > 0
+      ? data.map((item) => ({
+          month: item.month,
+          users: item.users,
+          licenses: item.licenses
+        }))
+      : [
+          { month: 'January', users: 100, licenses: 50 },
+          { month: 'February', users: 120, licenses: 60 },
+          { month: 'March', users: 140, licenses: 70 },
+          { month: 'April', users: 160, licenses: 80 },
+          { month: 'May', users: 180, licenses: 90 },
+          { month: 'June', users: 200, licenses: 100 }
+        ];
+
+  // Calculate growth percentage
+  const latestData = chartData[chartData.length - 1];
+  const previousData = chartData[chartData.length - 2];
+  const growthPercentage = previousData
+    ? (
+        ((latestData.users - previousData.users) / previousData.users) *
+        100
+      ).toFixed(1)
+    : '0';
   return (
     <Card className='@container/card'>
       <CardHeader>
-        <CardTitle>Area Chart - Stacked</CardTitle>
+        <CardTitle>Monthly Trends</CardTitle>
         <CardDescription>
-          Showing total visitors for the last 6 months
+          Users and licenses growth over the last 6 months
         </CardDescription>
       </CardHeader>
       <CardContent className='px-2 pt-4 sm:px-6 sm:pt-6'>
@@ -63,27 +82,27 @@ export function AreaGraph() {
             }}
           >
             <defs>
-              <linearGradient id='fillDesktop' x1='0' y1='0' x2='0' y2='1'>
+              <linearGradient id='fillUsers' x1='0' y1='0' x2='0' y2='1'>
                 <stop
                   offset='5%'
-                  stopColor='var(--color-desktop)'
+                  stopColor='var(--color-users)'
                   stopOpacity={1.0}
                 />
                 <stop
                   offset='95%'
-                  stopColor='var(--color-desktop)'
+                  stopColor='var(--color-users)'
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id='fillMobile' x1='0' y1='0' x2='0' y2='1'>
+              <linearGradient id='fillLicenses' x1='0' y1='0' x2='0' y2='1'>
                 <stop
                   offset='5%'
-                  stopColor='var(--color-mobile)'
+                  stopColor='var(--color-licenses)'
                   stopOpacity={0.8}
                 />
                 <stop
                   offset='95%'
-                  stopColor='var(--color-mobile)'
+                  stopColor='var(--color-licenses)'
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -102,17 +121,17 @@ export function AreaGraph() {
               content={<ChartTooltipContent indicator='dot' />}
             />
             <Area
-              dataKey='mobile'
+              dataKey='licenses'
               type='natural'
-              fill='url(#fillMobile)'
-              stroke='var(--color-mobile)'
+              fill='url(#fillLicenses)'
+              stroke='var(--color-licenses)'
               stackId='a'
             />
             <Area
-              dataKey='desktop'
+              dataKey='users'
               type='natural'
-              fill='url(#fillDesktop)'
-              stroke='var(--color-desktop)'
+              fill='url(#fillUsers)'
+              stroke='var(--color-users)'
               stackId='a'
             />
           </AreaChart>
@@ -122,11 +141,13 @@ export function AreaGraph() {
         <div className='flex w-full items-start gap-2 text-sm'>
           <div className='grid gap-2'>
             <div className='flex items-center gap-2 leading-none font-medium'>
-              Trending up by 5.2% this month{' '}
+              {Number(growthPercentage) > 0 ? 'Trending up' : 'Trending down'}{' '}
+              by {Math.abs(Number(growthPercentage))}% this month{' '}
               <IconTrendingUp className='h-4 w-4' />
             </div>
             <div className='text-muted-foreground flex items-center gap-2 leading-none'>
-              January - June 2024
+              {chartData[0]?.month} - {chartData[chartData.length - 1]?.month}{' '}
+              2024
             </div>
           </div>
         </div>

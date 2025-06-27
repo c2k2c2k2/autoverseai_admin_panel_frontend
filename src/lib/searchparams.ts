@@ -11,6 +11,8 @@ export const searchParams = {
   name: parseAsString,
   gender: parseAsString,
   category: parseAsString,
+  // Car-specific filters
+  type: parseAsString,
   // Variant-specific filters
   brandId: parseAsString,
   carId: parseAsString,

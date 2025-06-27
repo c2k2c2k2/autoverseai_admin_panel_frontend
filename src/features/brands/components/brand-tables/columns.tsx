@@ -6,6 +6,7 @@ import { Column, ColumnDef } from '@tanstack/react-table';
 import { CheckCircle2, Text, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import { CellAction } from './cell-action';
+import { format } from 'date-fns';
 
 export const columns: ColumnDef<Brand>[] = [
   {
@@ -120,8 +121,8 @@ export const columns: ColumnDef<Brand>[] = [
       <DataTableColumnHeader column={column} title='Created At' />
     ),
     cell: ({ cell }) => {
-      const date = new Date(cell.getValue<Brand['createdAt']>());
-      return <div>{date.toLocaleDateString()}</div>;
+      const dateValue = cell.getValue<Brand['createdAt']>();
+      return <div>{format(new Date(dateValue), 'MMM dd, yyyy')}</div>;
     }
   },
   {

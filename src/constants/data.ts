@@ -17,7 +17,6 @@ export const navItems: NavItem[] = [
     title: 'Dashboard',
     url: '/dashboard/overview',
     icon: 'dashboard',
-    isActive: false,
     shortcut: ['d', 'd'],
     items: [] // Empty array as there are no child items for Dashboard
   },
@@ -25,7 +24,6 @@ export const navItems: NavItem[] = [
     title: 'Brands',
     url: '/dashboard/brands',
     icon: 'product',
-    isActive: false,
     shortcut: ['b', 'b'],
     items: [] // No child items
   },
@@ -33,7 +31,6 @@ export const navItems: NavItem[] = [
     title: 'Cars',
     url: '/dashboard/cars',
     icon: 'car',
-    isActive: false,
     shortcut: ['c', 'c'],
     items: [] // No child items
   },
@@ -41,7 +38,6 @@ export const navItems: NavItem[] = [
     title: 'Variants',
     url: '/dashboard/variants',
     icon: 'variant',
-    isActive: false,
     shortcut: ['v', 'v'],
     items: [] // No child items
   },
@@ -49,55 +45,79 @@ export const navItems: NavItem[] = [
     title: 'License Types',
     url: '/dashboard/license-types',
     icon: 'car',
-    isActive: false,
     shortcut: ['l', 't'],
     items: [] // No child items
   },
   {
-    title: 'User Management',
-    url: '/dashboard/user-management',
-    icon: 'user',
-    isActive: false,
-    shortcut: ['d', 'd'],
-    items: [] // Empty array as there are no child items for Dashboard
-  },
-  {
-    title: 'Product',
-    url: '/dashboard/product',
-    icon: 'product',
-    shortcut: ['p', 'p'],
-    isActive: false,
-    items: [] // No child items
-  },
-  {
-    title: 'Account',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'billing',
-    isActive: true,
-
+    title: 'Licenses',
+    url: '/dashboard/licenses',
+    icon: 'shield',
+    shortcut: ['l', 'i'],
     items: [
       {
-        title: 'Profile',
-        url: '/dashboard/profile',
-        icon: 'userPen',
-        shortcut: ['m', 'm']
+        title: 'All Licenses',
+        url: '/dashboard/licenses',
+        icon: 'list',
+        shortcut: ['l', 'a']
       },
       {
-        title: 'Login',
-        shortcut: ['l', 'l'],
-        url: '/',
-        icon: 'login'
+        title: 'Assign License',
+        url: '/dashboard/licenses/assign',
+        icon: 'userPlus',
+        shortcut: ['l', 's']
+      },
+      {
+        title: 'Statistics',
+        url: '/dashboard/licenses/stats',
+        icon: 'chart',
+        shortcut: ['l', 'st']
       }
     ]
   },
   {
-    title: 'Kanban',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: [] // No child items
+    title: 'Users',
+    url: '/dashboard/users',
+    icon: 'user',
+    shortcut: ['u', 'u'],
+    items: [] // Empty array as there are no child items for Users
   }
+  // {
+  //   title: 'Product',
+  //   url: '/dashboard/product',
+  //   icon: 'product',
+  //   shortcut: ['p', 'p'],
+  //   isActive: false,
+  //   items: [] // No child items
+  // },
+  // {
+  //   title: 'Account',
+  //   url: '#', // Placeholder as there is no direct link for the parent
+  //   icon: 'billing',
+  //   isActive: true,
+
+  //   items: [
+  //     {
+  //       title: 'Profile',
+  //       url: '/dashboard/profile',
+  //       icon: 'userPen',
+  //       shortcut: ['m', 'm']
+  //     },
+  //     {
+  //       title: 'Login',
+  //       shortcut: ['l', 'l'],
+  //       url: '/',
+  //       icon: 'login'
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: 'Kanban',
+  //   url: '/dashboard/kanban',
+  //   icon: 'kanban',
+  //   shortcut: ['k', 'k'],
+  //   isActive: false,
+  //   items: [] // No child items
+  // }
 ];
 
 export interface SaleUser {

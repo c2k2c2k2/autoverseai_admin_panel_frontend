@@ -7,10 +7,39 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
-import { Check, X, Pencil, Trash } from 'lucide-react';
+import { Check, X, Pencil, Trash, Text } from 'lucide-react';
+import Image from 'next/image';
 
 export const columns: ColumnDef<LicenseType>[] = [
   {
+    accessorKey: 'iconUrl',
+    header: 'ICON',
+    cell: ({ row }) => {
+      const iconUrl = row.getValue('iconUrl') as string;
+      return (
+        <div className='relative aspect-square h-12 w-12'>
+          {iconUrl ? (
+            <Image
+              src={iconUrl}
+              alt={row.getValue('name')}
+              fill
+              className='rounded-lg object-contain'
+              onError={(e) => {
+                // Fallback to placeholder if image fails to load
+                e.currentTarget.src = '/placeholder-brand.png';
+              }}
+            />
+          ) : (
+            <div className='flex h-full w-full items-center justify-center rounded-lg bg-gray-100 text-gray-400'>
+              <Text className='h-6 w-6' />
+            </div>
+          )}
+        </div>
+      );
+    }
+  },
+  {
+    id: 'name',
     accessorKey: 'name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Name' />
@@ -24,7 +53,13 @@ export const columns: ColumnDef<LicenseType>[] = [
           {row.getValue('name')}
         </Link>
       );
-    }
+    },
+    meta: {
+      label: 'Name',
+      placeholder: 'Search license types...',
+      variant: 'text'
+    },
+    enableColumnFilter: true
   },
   {
     accessorKey: 'code',

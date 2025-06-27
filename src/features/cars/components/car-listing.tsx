@@ -1,43 +1,41 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { CarTable } from './car-tables/car-table';
-import { Car } from '@/types/car';
-import { carsApi } from '../api/cars';
-import { toast } from 'sonner';
+import { columns } from './car-tables/columns';
+import { serverCarsApi } from '../api/server-cars';
 
-export const CarListing = () => {
-  const [cars, setCars] = useState<Car[]>([]);
-  const [loading, setLoading] = useState(true);
+interface CarListingProps {
+  searchParams: {
+    page?: number | null;
+    perPage?: number | null;
+    name?: string | null;
+    brandId?: string | null;
+    type?: string | null;
+    status?: string | null;
+    [key: string]: any;
+  };
+}
 
-  useEffect(() => {
-    const loadCars = async () => {
-      try {
-        const response = await carsApi.getCars({});
-        setCars(response.data);
-      } catch (error) {
-        toast.error('Failed to load cars');
-      } finally {
-        setLoading(false);
-      }
+export default async function CarListing({ searchParams }: CarListingProps) {
+  try {
+    const filters = {
+      page: searchParams.page ?? 1,
+      limit: searchParams.perPage ?? 10,
+      ...(searchParams.name && { search: searchParams.name }),
+      ...(searchParams.brandId && { brandId: searchParams.brandId }),
+      ...(searchParams.type && { type: searchParams.type }),
+      ...(searchParams.status && { status: searchParams.status })
     };
 
-    loadCars();
-  }, []);
+    // Fetch cars data
+    const data = await serverCarsApi.getCars(filters);
 
-  if (loading) {
-    return (
-      <div className='flex h-full items-center justify-center'>
-        <div className='h-32 w-32 animate-spin rounded-full border-b-2 border-gray-900' />
-      </div>
-    );
+    // Ensure we have valid data
+    const cars = data?.data || [];
+    const totalItems = data?.total || 0;
+
+    return <CarTable data={cars} totalItems={totalItems} columns={columns} />;
+  } catch (error) {
+    console.error('Error fetching cars:', error);
+    // Return empty state on error
+    return <CarTable data={[]} totalItems={0} columns={columns} />;
   }
-
-  return (
-    <div className='flex-col'>
-      <div className='flex-1 space-y-4 p-8 pt-6'>
-        <CarTable data={cars} />
-      </div>
-    </div>
-  );
-};
+}

@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { CellAction } from './cell-action';
 import Image from 'next/image';
+import { format } from 'date-fns';
 
 export const columns: ColumnDef<Car>[] = [
   {
@@ -41,6 +42,7 @@ export const columns: ColumnDef<Car>[] = [
     }
   },
   {
+    id: 'name',
     accessorKey: 'name',
     header: ({ column }) => {
       return (
@@ -65,7 +67,13 @@ export const columns: ColumnDef<Car>[] = [
           )}
         </div>
       );
-    }
+    },
+    meta: {
+      label: 'Name',
+      placeholder: 'Search cars...',
+      variant: 'text'
+    },
+    enableColumnFilter: true
   },
   {
     accessorKey: 'brand',
@@ -208,8 +216,8 @@ export const columns: ColumnDef<Car>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue('createdAt'));
-      return <div>{date.toLocaleDateString()}</div>;
+      const dateValue = row.getValue('createdAt') as string;
+      return <div>{format(new Date(dateValue), 'MMM dd, yyyy')}</div>;
     }
   },
   {
